@@ -22,6 +22,18 @@ Download the processed Yelp and Yahoo datasets by running:
 bash download_data.sh
 ```
 
+Unzip the processed Anki English⇔Spanish dataset (by [ManyThings.org](https://www.manythings.org/bilingual/)) by running:
+```
+cd data
+unzip anki.zip
+```
+
+Or, download and then preprocess the Anki dataset by running:
+```
+bash download_eng_spa_data.sh
+python preproc.py --input tmp-spa-eng-data/spa.txt --output data/anki
+```
+
 ## Training
 The basic training command is:
 ```
