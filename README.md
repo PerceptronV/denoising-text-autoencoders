@@ -37,7 +37,7 @@ python preproc.py --input tmp-spa-eng-data/spa.txt --output data/anki
 ## Training
 The basic training command is:
 ```
-python train.py --train data/yelp/train.txt --valid data/yelp/valid.txt --model_type aae --lambda_adv 10 --noise 0.3,0,0,0 --save-dir checkpoints/yelp/daae
+python train.py --train data/anki/train.txt --valid data/anki/valid.txt --model_type aae --lambda_adv 10 --noise 0.3,0,0,0 --save-dir checkpoints/anki/daae
 ```
 To train various models, use the following options:
 - AE: `--model_type dae --save-dir checkpoints/yelp/ae`
@@ -53,18 +53,17 @@ After training, the model can be used for different tasks.
 
 To reconstruct input data, run:
 ```
-python test.py --reconstruct --data data/yelp/test.txt --output test --checkpoint checkpoints/yelp/daae/
+python test.py --reconstruct --data data/anki/test.txt --output test --checkpoint checkpoints/anki/daae/
 ```
 
 To generate sentences from the model, run:
 ```
-python test.py --sample --n 10000 --output sample --checkpoint checkpoints/yelp/daae/
+python test.py --sample --n 10000 --output sample.txt --checkpoint checkpoints/anki/daae/
 ```
 
 To perform sentence manipulation via vector arithmetic, run:
 ```
-python test.py --arithmetic --data data/yelp/tense/valid.past,data/yelp/tense/valid.present,data/yelp/tense/test.past --output test.past2present --checkpoint checkpoints/yelp/daae/
-python test.py --arithmetic --k 2 --data data/yelp/sentiment/100.neg,data/yelp/sentiment/100.pos,data/yelp/sentiment/1000.neg --output 1000.neg2pos --checkpoint checkpoints/yelp/daae/
+python test.py --arithmetic --data data/anki/language/eng_100_train.txt,data/anki/language/spa_100_train.txt,data/anki/language/eng_100_test.txt --output eng2spa_100_test.txt --checkpoint checkpoints/anki/daae/
 ```
 where the difference between the average latent representation of the first two data files will be applied to the third file (separated by commas), and `k` denotes the scaling factor.
 
