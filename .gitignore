@@ -105,3 +105,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# training checkpoints
+checkpoints/
+
+# training data
+data/*
+!data/anki.zip
