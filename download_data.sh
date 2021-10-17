@@ -1,6 +1,3 @@
-mkdir data
-cd data
-
 dir="http://people.csail.mit.edu/tianxiao/data"
 
 wget $dir/yelp.zip
