@@ -111,4 +111,5 @@ checkpoints/
 
 # training data
 data/*
+tmp-spa-eng-data/
 !data/anki.zip
