@@ -56,6 +56,8 @@ parser.add_argument('--seed', type=int, default=1111, metavar='N',
                     help='random seed')
 parser.add_argument('--no-cuda', action='store_true',
                     help='disable CUDA')
+parser.add_argument('--verbose', action="store_true",
+                    help="print progress")
 
 def get_model(path):
     ckpt = torch.load(path, map_location=device)
@@ -71,7 +73,10 @@ def encode(sents):
     assert args.enc == 'mu' or args.enc == 'z'
     batches, order = get_batches(sents, vocab, args.batch_size, device)
     z = []
-    for inputs, _ in batches:
+    l = len(batches)
+    for e, (inputs, _) in enumerate(batches):
+        if args.verbose:
+            print(f'Encoding batch {e+1}/{l}')
         mu, logvar = model.encode(inputs)
         if args.enc == 'mu':
             zi = mu
