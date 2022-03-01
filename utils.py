@@ -37,6 +37,9 @@ def write_z(z, path):
                 f.write('%f ' % zij)
             f.write('\n')
 
+def write_z_tensor(z, path):
+    torch.save(z, path)
+
 def logging(s, path, print_=True):
     if print_:
         print(s)

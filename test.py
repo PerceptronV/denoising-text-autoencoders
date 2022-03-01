@@ -14,7 +14,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--checkpoint', metavar='DIR', required=True,
                     help='checkpoint directory')
 parser.add_argument('--output', metavar='FILE',
-                    help='output file name (in checkpoint directory)')
+                    help='output file name (in checkpoint directory by default)')
+parser.add_argument('--output_dir', metavar='FILE', default=None,
+                    help='output file directory (checkpoint directory by default)')
 parser.add_argument('--data', metavar='FILE',
                     help='path to data file')
 
@@ -56,7 +58,7 @@ parser.add_argument('--no-cuda', action='store_true',
                     help='disable CUDA')
 
 def get_model(path):
-    ckpt = torch.load(path)
+    ckpt = torch.load(path, map_location=device)
     train_args = ckpt['args']
     model = {'dae': DAE, 'vae': VAE, 'aae': AAE}[train_args.model_type](
         vocab, train_args).to(device)
@@ -109,6 +111,9 @@ if __name__ == '__main__':
     device = torch.device("cuda" if cuda else "cpu")
     model = get_model(os.path.join(args.checkpoint, 'model.pt'))
 
+    if args.output_dir is None:
+        args.output_dir = args.checkpoint
+
     if args.evaluate:
         sents = load_sent(args.data)
         batches, _ = get_batches(sents, vocab, args.batch_size, device)
@@ -131,6 +136,7 @@ if __name__ == '__main__':
         z = encode(sents)
         sents_rec = decode(z)
         write_z(z, os.path.join(args.checkpoint, args.output+'.z.txt'))
+        write_z_tensor(z, os.path.join(args.checkpoint, args.output+'.z.pt'))
         write_sent(sents_rec, os.path.join(args.checkpoint, args.output+'.rec.txt'))
 
     if args.arithmetic:
