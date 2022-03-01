@@ -133,6 +133,7 @@ if __name__ == '__main__':
 
     if args.output_dir is None:
         args.output_dir = args.checkpoint
+    os.makedirs(args.output_dir, exist_ok=True)
 
     if args.evaluate:
         sents = load_sent(args.data)
