@@ -58,6 +58,10 @@ parser.add_argument('--no-cuda', action='store_true',
                     help='disable CUDA')
 parser.add_argument('--verbose', action="store_true",
                     help="print progress")
+parser.add_argument('--rec', action="store_true",
+                    help="whether or not to reconstruct sentences in reconstruction test, or just take z values")
+parser.add_argument('--write_z', action="store_true",
+                    help="whether or not to write z as a nicely formatted text file")
 
 def get_model(path):
     ckpt = torch.load(path, map_location=device)
@@ -83,9 +87,20 @@ def encode(sents):
         else:
             zi = reparameterize(mu, logvar)
         z.append(zi.detach().cpu().numpy())
+    if args.verbose:
+        print('Finished all encodings')
+    
     z = np.concatenate(z, axis=0)
+    if args.verbose:
+        print('Concatenated')
+    
     z_ = np.zeros_like(z)
+    if args.verbose:
+        print('Zeros liked')
+    
     z_[np.array(order)] = z
+    if args.verbose:
+        print('z_ed')
     return z_
 
 def decode(z):
@@ -139,10 +154,18 @@ if __name__ == '__main__':
     if args.reconstruct:
         sents = load_sent(args.data)
         z = encode(sents)
-        sents_rec = decode(z)
-        write_z(z, os.path.join(args.checkpoint, args.output+'.z.txt'))
+        if args.verbose:
+            print('Encoded')
+        
         write_z_tensor(z, os.path.join(args.checkpoint, args.output+'.z.pt'))
-        write_sent(sents_rec, os.path.join(args.checkpoint, args.output+'.rec.txt'))
+        if args.write_z:
+            write_z(z, os.path.join(args.checkpoint, args.output+'.z.txt'))
+        if args.verbose:
+            print('z written')
+
+        if args.rec:
+            sents_rec = decode(z)
+            write_sent(sents_rec, os.path.join(args.checkpoint, args.output+'.rec.txt'))
 
     if args.arithmetic:
         fa, fb, fc = args.data.split(',')
