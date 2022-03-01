@@ -157,15 +157,15 @@ if __name__ == '__main__':
         if args.verbose:
             print('Encoded')
         
-        write_z_tensor(z, os.path.join(args.checkpoint, args.output+'.z.pt'))
+        write_z_tensor(z, os.path.join(args.output_dir, args.output+'.z.pt'))
         if args.write_z:
-            write_z(z, os.path.join(args.checkpoint, args.output+'.z.txt'))
+            write_z(z, os.path.join(args.output_dir, args.output+'.z.txt'))
         if args.verbose:
             print('z written')
 
         if args.rec:
             sents_rec = decode(z)
-            write_sent(sents_rec, os.path.join(args.checkpoint, args.output+'.rec.txt'))
+            write_sent(sents_rec, os.path.join(args.output_dir, args.output+'.rec.txt'))
 
     if args.arithmetic:
         fa, fb, fc = args.data.split(',')
