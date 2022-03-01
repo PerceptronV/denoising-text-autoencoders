@@ -28,6 +28,8 @@ parser.add_argument('--arith_spa_test', type=int, default=100,
 # Others
 parser.add_argument('--seed', type=int, default=1111, metavar='N',
                     help='random seed')
+parser.add_argument('--parallel', action="store_true",
+                    help='generate parallel data')
 
 def preproc_sent(sent):
     # remove the funny stuff above some spanish characters
@@ -62,78 +64,125 @@ def main(args):
     
     lines = text.split('\n')
     print("Number of lines: {}".format(len(lines)))
+
+    # Parallel preprocessing
+    if args.parallel:
+        parallel_sents = []
+        for l in lines:
+            eng_s, spa_s, _ = l.split('\t')
+            parallel_sents.append((preproc_sent(eng_s), preproc_sent(spa_s)))
     
-    eng_sents = []
-    spa_sents = []
-    for l in lines:
-        eng_s, spa_s, _ = l.split('\t')
-        eng_sents.append(preproc_sent(eng_s))
-        spa_sents.append(preproc_sent(spa_s))
+        parallel_sents = np.array(parallel_sents)
+        np.random.shuffle(parallel_sents)
+
+        num_total = len(parallel_sents)
+        num_train = int(num_total * args.train)
+        num_test = int(num_total * args.test)
+        num_valid = int(num_total * args.valid)
+
+        (eng_train_sents, eng_test_sents, eng_valid_sents,
+        spa_train_sents, spa_test_sents, spa_valid_sents) = ([], [], [], [], [], [])
+
+        train_thresh, test_thresh, valid_thresh = num_train, num_train + num_test, num_train + num_test + num_valid
+        for e, (eng_s, spa_s) in enumerate(parallel_sents):
+            if e < train_thresh:
+                eng_train_sents.append(eng_s)
+                spa_train_sents.append(spa_s)
+            elif e < test_thresh:
+                eng_test_sents.append(eng_s)
+                spa_test_sents.append(spa_s)
+            elif e < valid_thresh:
+                eng_valid_sents.append(eng_s)
+                spa_valid_sents.append(spa_s)
+
+        writefile(os.path.join(args.output, "eng_train.txt"), eng_train_sents)
+        writefile(os.path.join(args.output, "eng_test.txt"), eng_test_sents)
+        writefile(os.path.join(args.output, "eng_valid.txt"), eng_valid_sents)
+
+        writefile(os.path.join(args.output, "spa_train.txt"), spa_train_sents)
+        writefile(os.path.join(args.output, "spa_test.txt"), spa_test_sents)
+        writefile(os.path.join(args.output, "spa_valid.txt"), spa_valid_sents)
+
+        desc = """{} parallel sentences pairs in total.
+Training: {}
+Testing: {}
+Validation: {}""".format(num_total, num_train, num_test, num_valid)
+
+        print(desc)
     
-    eng_sents, spa_sents = np.array(eng_sents), np.array(spa_sents)
-    np.random.shuffle(eng_sents)
-    np.random.shuffle(spa_sents)
-
-    total_sents_num = len(eng_sents) + len(spa_sents)
-
-    (arith_eng_train_sents, 
-     arith_eng_test_sents, 
-     eng_remaining_sents) = (eng_sents[:args.arith_eng_train], 
-                             eng_sents[args.arith_eng_train:args.arith_eng_train+args.arith_eng_test], 
-                             eng_sents[args.arith_eng_train+args.arith_eng_test:])
-    (arith_spa_train_sents, 
-     arith_spa_test_sents, 
-     spa_remaining_sents) = (spa_sents[:args.arith_spa_train], 
-                             spa_sents[args.arith_spa_train:args.arith_spa_train+args.arith_spa_test], 
-                             spa_sents[args.arith_spa_train+args.arith_spa_test:])
+    # Non-parallel preprocessing
+    else:
+        eng_sents = []
+        spa_sents = []
+        for l in lines:
+            eng_s, spa_s, _ = l.split('\t')
+            eng_sents.append(preproc_sent(eng_s))
+            spa_sents.append(preproc_sent(spa_s))
     
-    remaining_sents = np.array(eng_remaining_sents.tolist() + spa_remaining_sents.tolist())
-    np.random.shuffle(remaining_sents)
+        eng_sents, spa_sents = np.array(eng_sents), np.array(spa_sents)
+        np.random.shuffle(eng_sents)
+        np.random.shuffle(spa_sents)
 
-    num_total = len(remaining_sents)
-    num_train = int(num_total * args.train)
-    num_test = int(num_total * args.test)
-    num_valid = int(num_total * args.valid)
+        total_sents_num = len(eng_sents) + len(spa_sents)
 
-    (train_sents, 
-     test_sents, 
-     valid_sents) = (remaining_sents[:num_train],
-                     remaining_sents[num_train:num_train+num_test],
-                     remaining_sents[num_train+num_test:num_train+num_test+num_valid])
-    
-    writefile(
-        os.path.join(args.output, "language", "eng_{}_train.txt".format(args.arith_eng_train)), 
-        arith_eng_train_sents.tolist()
-    )
-    writefile(
-        os.path.join(args.output, "language", "spa_{}_train.txt".format(args.arith_spa_train)), 
-        arith_spa_train_sents.tolist()
-    )
-    writefile(
-        os.path.join(args.output, "language", "eng_{}_test.txt".format(args.arith_eng_test)), 
-        arith_eng_test_sents.tolist()
-    )
-    writefile(
-        os.path.join(args.output, "language", "spa_{}_test.txt".format(args.arith_spa_test)), 
-        arith_spa_test_sents.tolist()
-    )
+        (arith_eng_train_sents, 
+        arith_eng_test_sents, 
+        eng_remaining_sents) = (eng_sents[:args.arith_eng_train], 
+                                eng_sents[args.arith_eng_train:args.arith_eng_train+args.arith_eng_test], 
+                                eng_sents[args.arith_eng_train+args.arith_eng_test:])
+        (arith_spa_train_sents, 
+        arith_spa_test_sents, 
+        spa_remaining_sents) = (spa_sents[:args.arith_spa_train], 
+                                spa_sents[args.arith_spa_train:args.arith_spa_train+args.arith_spa_test], 
+                                spa_sents[args.arith_spa_train+args.arith_spa_test:])
+        
+        remaining_sents = np.array(eng_remaining_sents.tolist() + spa_remaining_sents.tolist())
+        np.random.shuffle(remaining_sents)
 
-    writefile(os.path.join(args.output, "train.txt"), train_sents.tolist())
-    writefile(os.path.join(args.output, "test.txt"), test_sents.tolist())
-    writefile(os.path.join(args.output, "valid.txt"), valid_sents.tolist())
+        num_total = len(remaining_sents)
+        num_train = int(num_total * args.train)
+        num_test = int(num_total * args.test)
+        num_valid = int(num_total * args.valid)
 
-    desc = """{} sentences processed in total.
+        (train_sents, 
+        test_sents, 
+        valid_sents) = (remaining_sents[:num_train],
+                        remaining_sents[num_train:num_train+num_test],
+                        remaining_sents[num_train+num_test:num_train+num_test+num_valid])
+        
+        writefile(
+            os.path.join(args.output, "language", "eng_{}_train.txt".format(args.arith_eng_train)), 
+            arith_eng_train_sents.tolist()
+        )
+        writefile(
+            os.path.join(args.output, "language", "spa_{}_train.txt".format(args.arith_spa_train)), 
+            arith_spa_train_sents.tolist()
+        )
+        writefile(
+            os.path.join(args.output, "language", "eng_{}_test.txt".format(args.arith_eng_test)), 
+            arith_eng_test_sents.tolist()
+        )
+        writefile(
+            os.path.join(args.output, "language", "spa_{}_test.txt".format(args.arith_spa_test)), 
+            arith_spa_test_sents.tolist()
+        )
 
-{} English sentences used for arithmetic training, {} English sentences used for arithmetic testing.
-{} Spanish sentences used for arithmetic training, {} Spanish sentences used for arithmetic testing.
+        writefile(os.path.join(args.output, "train.txt"), train_sents.tolist())
+        writefile(os.path.join(args.output, "test.txt"), test_sents.tolist())
+        writefile(os.path.join(args.output, "valid.txt"), valid_sents.tolist())
 
-{} sentences then remain.
-Of these, {} sentences used for training, {} sentences used for testing, {} sentences used for validating.""".format(
-    total_sents_num, args.arith_eng_train, args.arith_eng_test, args.arith_spa_train, args.arith_spa_test, 
-    num_total, num_train, num_test, num_valid
-    )
+        desc = """{} sentences processed in total.
 
-    print(desc)
+    {} English sentences used for arithmetic training, {} English sentences used for arithmetic testing.
+    {} Spanish sentences used for arithmetic training, {} Spanish sentences used for arithmetic testing.
+
+    {} sentences then remain.
+    Of these, {} sentences used for training, {} sentences used for testing, {} sentences used for validating.""".format(
+        total_sents_num, args.arith_eng_train, args.arith_eng_test, args.arith_spa_train, args.arith_spa_test, 
+        num_total, num_train, num_test, num_valid
+        )
+
+        print(desc)
 
 
 if __name__ == '__main__':   

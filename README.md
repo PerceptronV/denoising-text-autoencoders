@@ -32,6 +32,7 @@ Or, download and then preprocess the Anki dataset by running:
 ```
 bash download_eng_spa_data.sh
 python preproc.py --input tmp-spa-eng-data/spa.txt --output data/anki
+python preproc.py --input tmp-spa-eng-data/spa.txt --output data/anki_parallel --parallel
 ```
 
 ## Training
