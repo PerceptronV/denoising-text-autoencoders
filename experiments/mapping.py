@@ -25,8 +25,8 @@ VECTOR_DIM = 128
 EPOCHS = 10
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-eng_vectors = torch.rand((1000, 128), dtype=torch.float32)
-spa_vectors = torch.rand((1000, 128), dtype=torch.float32)
+eng_vectors = torch.load('eng_train.z.pt', dtype=torch.float32).to(device)
+spa_vectors = torch.load('spa_train.z.pt', dtype=torch.float32).to(device)
 
 eng_dataloader = DataLoader(eng_vectors, batch_size=64, shuffle=False)
 spa_dataloader = DataLoader(spa_vectors, batch_size=64, shuffle=False)

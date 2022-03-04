@@ -113,3 +113,6 @@ checkpoints/
 data/*
 tmp-spa-eng-data/
 !data/anki.zip
+
+*/eng_train.z.pt
+*/spa_train.z.pt
