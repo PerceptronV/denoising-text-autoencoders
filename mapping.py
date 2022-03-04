@@ -9,6 +9,7 @@ def train_loop(eng_dataloader, spa_dataloader, model, loss_fn, optimizer):
     for batch, (eng_vec, spa_vec) in enumerate(zip(eng_dataloader, spa_dataloader)):
         pred = model(eng_vec)
         loss = loss_fn(pred, spa_vec)
+        # loss = -loss_fn(pred, spa_vec).abs().mean() # use this for cosine loss
         print(loss.shape)
 
         optimizer.zero_grad()
@@ -43,8 +44,12 @@ model = MappingModel(VECTOR_DIM)
 print(f"Shape of eng vectors: {eng_vectors.shape}")
 print(model(eng_vectors[0]))
 
-loss_fn = nn.CosineSimilarity()
+loss_cosine = nn.CosineSimilarity()
+loss_mse = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+loss_fn = loss_mse
+# loss_fn = loss_cosine # use this for cosine loss
 
 for t in range(EPOCHS):
     print(f"Epoch {t+1}\n-------------------------------")
