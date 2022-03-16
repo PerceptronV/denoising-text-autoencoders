@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "python ml-high run",
+            "type": "shell",
+            "command": "cd ${workspaceFolder}\\${relativeFileDirname} & conda activate ml-high & python ${fileBasename}",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
