@@ -177,8 +177,7 @@ if __name__ == '__main__':
 
     if args.arithmetic:
         VECTOR_DIM = 128
-        mappingModel = MappingModel(VECTOR_DIM).to(device)
-        mappingModel.load_state_dict(torch.load(args.map_model))
+        mappingModel = torch.load(args.map_model).to(device)
 
         fc = args.data
         sc = load_sent(fc)

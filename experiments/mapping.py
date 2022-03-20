@@ -1,3 +1,6 @@
+import os
+import argparse
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -5,6 +8,31 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from mapModel import MappingModel
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--vector-dir', type=str, default="./vectors", 
+                    help='Directory to the train, test, and validation vector files for both English and Spanish')
+parser.add_argument('--output-dir', type=str, default="./models", 
+                    help='Directory to store the trained model')
+parser.add_argument('--log-dir', type=str, default="./runs", 
+                    help='Directory to store the tensorboard logs')
+
+parser.add_argument('--vector-dim', type=int, default=128,
+                    help='Dimension of vector')
+parser.add_argument('--epochs', type=int, default=10, 
+                    help='Number of epochs')
+parser.add_argument('--batch-size', type=int, default=10, 
+                    help='Number of epochs')
+parser.add_argument('--loss-func', type=str, default='mse', choices=['mse', 'cosine'],
+                    help='Type of loss function to use')
+parser.add_argument('--layers', type=int, default=2,
+                    help='Number of layers of mapping model')
+parser.add_argument('--units', type=int, default=128,
+                    help='Number of units in mapping model')
+parser.add_argument('--activation', type=str, default='relu', choices=['relu', 'sigmoid', 'tanh'],
+                    help='Type of loss function to use')
+
 
 def train_loop(eng_dataloader, spa_dataloader, model, loss_fn, optimizer, writerStep):
     size = len(eng_dataloader.dataset)
@@ -27,7 +55,7 @@ def train_loop(eng_dataloader, spa_dataloader, model, loss_fn, optimizer, writer
         loss = loss.item()
         losses.append(loss)
 
-        writer.add_scalar('Train/Loss', loss, writerStep)
+        writer.add_scalar('Loss/Train', loss, writerStep)
         writerStep += 1
 
         if (step % (size // 5)) < BATCH_SIZE:
@@ -38,40 +66,77 @@ def train_loop(eng_dataloader, spa_dataloader, model, loss_fn, optimizer, writer
 
     return mean_loss, writerStep
 
+def valid_loop(eng_dataloader, spa_dataloader, model, loss_fn, writerStep):
+    losses = []
 
-VECTOR_DIM = 128
-EPOCHS = 10
-BATCH_SIZE = 64
-LOSS_FUNC = "mse"
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    with torch.no_grad():
+        for eng_vec, spa_vec in zip(eng_dataloader, spa_dataloader):
+            pred = model(eng_vec)
 
-writer = SummaryWriter(f"runs/log_{LOSS_FUNC}")
-writerStep = 0
+            if LOSS_FUNC == "mse":
+                loss = loss_fn(pred, spa_vec)
+            elif LOSS_FUNC == "cosine":
+                loss = -loss_fn(pred, spa_vec).abs().mean() # use this for cosine loss
+            
+            loss = loss.item()
+            losses.append(loss)
+    
+    mean_loss = np.mean(losses)
+    writer.add_scalar('Loss/Validation', mean_loss, writerStep)
+    print(f"> Mean validation loss: {mean_loss:>7f}")
 
-eng_vectors = torch.tensor(torch.load('eng_train.z.pt'), dtype=torch.float32).to(device)
-spa_vectors = torch.tensor(torch.load('spa_train.z.pt'), dtype=torch.float32).to(device)
+    return mean_loss
 
-eng_dataloader = DataLoader(eng_vectors, batch_size=BATCH_SIZE, shuffle=False)
-spa_dataloader = DataLoader(spa_vectors, batch_size=BATCH_SIZE, shuffle=False)
+def load_parallel_data(dir, type, device):
+    eng_path = os.path.join(dir, f"eng_{type}.z.pt")
+    spa_path = os.path.join(dir, f"spa_{type}.z.pt")
 
-model = MappingModel(VECTOR_DIM)
-# print(f"Shape of eng vectors: {eng_vectors.shape}")
-# print(model(eng_vectors[0]))
+    eng_vectors = torch.tensor(torch.load(eng_path), dtype=torch.float32).to(device)
+    spa_vectors = torch.tensor(torch.load(spa_path), dtype=torch.float32).to(device)
 
-loss_cosine = nn.CosineSimilarity()
-loss_mse = nn.MSELoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+    eng_dataloader = DataLoader(eng_vectors, batch_size=BATCH_SIZE, shuffle=False)
+    spa_dataloader = DataLoader(spa_vectors, batch_size=BATCH_SIZE, shuffle=False)
 
-if LOSS_FUNC == "mse":
-    loss_fn = loss_mse
-elif LOSS_FUNC == "cosine":
-    loss_fn = loss_cosine # use this for cosine loss
+    return eng_dataloader, spa_dataloader
 
-for t in range(EPOCHS):
-    print(f"\nEpoch {t+1}\n-------------------------------")
-    _, writerStep = train_loop(eng_dataloader, spa_dataloader, model, loss_fn, optimizer, writerStep)
-print("\nTraining complete")
 
-writer.close()
+if __name__ == "__main__":
+    args = parser.parse_args()
 
-torch.save(model.state_dict(), f"model_{LOSS_FUNC}.pt")
+    VECTOR_DIM = args.vector_dim
+    EPOCHS = args.epochs
+    BATCH_SIZE = args.batch_size
+    LOSS_FUNC = args.loss_func
+    NLAYERS = args.layers
+    UNITS = args.units
+    ACTIVATION = args.activation
+
+    signature = f"n{NLAYERS}_l{LOSS_FUNC}_u{UNITS}_a{ACTIVATION}_e{EPOCHS}"
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+    eng_train_dataloader, spa_train_dataloader = load_parallel_data(args.vector_dir, "train", device)
+    eng_valid_dataloader, spa_valid_dataloader = load_parallel_data(args.vector_dir, "valid", device)
+
+    afunc = {"relu": nn.ReLU, "sigmoid": nn.Sigmoid, "tanh": nn.Tanh}[ACTIVATION]
+    model = MappingModel(VECTOR_DIM, NLAYERS, activation=afunc).to(device)
+
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+    if LOSS_FUNC == "mse":
+        loss_fn = nn.MSELoss()
+    elif LOSS_FUNC == "cosine":
+        loss_fn = nn.CosineSimilarity() # use this for cosine loss
+    
+    writer = SummaryWriter(os.path.join(args.log_dir, f"log_{signature}"))
+    writerStep = 0
+
+    for t in range(EPOCHS):
+        print(f"\nEpoch {t+1}\n-------------------------------")
+        _, writerStep = train_loop(eng_train_dataloader, spa_train_dataloader, model, loss_fn, optimizer, writerStep)
+        _ = valid_loop(eng_valid_dataloader, spa_valid_dataloader, model, loss_fn, writerStep)
+    
+    print("\nTraining complete")
+
+    writer.close()
+    torch.save(model, os.path.join(args.output_dir, f"model_{signature}.pt"))
+    print("Model saved")
