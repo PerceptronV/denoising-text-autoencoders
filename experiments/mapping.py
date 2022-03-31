@@ -22,7 +22,7 @@ parser.add_argument('--seed', type=int, default=1920,
 
 parser.add_argument('--vector-dim', type=int, default=128,
                     help='Dimension of vector')
-parser.add_argument('--epochs', type=int, default=10, 
+parser.add_argument('--epochs', type=int, default=15,
                     help='Number of epochs')
 parser.add_argument('--batch-size', type=int, default=64, 
                     help='Number of batches')
