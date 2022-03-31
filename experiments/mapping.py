@@ -17,13 +17,15 @@ parser.add_argument('--output-dir', type=str, default="./models",
                     help='Directory to store the trained model')
 parser.add_argument('--log-dir', type=str, default="./runs", 
                     help='Directory to store the tensorboard logs')
+parser.add_argument('--seed', type=int, default=1920,
+                    help="Seed for reproducibility")
 
 parser.add_argument('--vector-dim', type=int, default=128,
                     help='Dimension of vector')
 parser.add_argument('--epochs', type=int, default=10, 
                     help='Number of epochs')
-parser.add_argument('--batch-size', type=int, default=10, 
-                    help='Number of epochs')
+parser.add_argument('--batch-size', type=int, default=64, 
+                    help='Number of batches')
 parser.add_argument('--data-fraction', type=float, default=1,
                     help='Fraction of data to use')
 parser.add_argument('--loss-func', type=str, default='mse', choices=['mse', 'cosine'],
@@ -120,14 +122,17 @@ if __name__ == "__main__":
     ACTIVATION = args.activation
 
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    torch.manual_seed(args.seed)
+    np.random.seed(args.seed)
 
     (eng_train_dataloader, 
      spa_train_dataloader, 
                     keep)   = load_parallel_data(args.vector_dir, "train", device, args.data_fraction)
     (eng_valid_dataloader, 
-     spa_valid_dataloader)  = load_parallel_data(args.vector_dir, "valid", device, 1)
+     spa_valid_dataloader, 
+                       _)  = load_parallel_data(args.vector_dir, "valid", device, 1)
     
-    signature = f"n{NLAYERS}_l{LOSS_FUNC}_u{UNITS}_a{ACTIVATION}_e{EPOCHS}_s{keep}"
+    signature = f"n{NLAYERS}_l{LOSS_FUNC}_u{UNITS}_a{ACTIVATION}_e{EPOCHS}_b{BATCH_SIZE}_d{args.data_fraction}"
 
     afunc = {"relu": nn.ReLU, "sigmoid": nn.Sigmoid, "tanh": nn.Tanh}[ACTIVATION]
     model = MappingModel(VECTOR_DIM, NLAYERS, activation=afunc).to(device)

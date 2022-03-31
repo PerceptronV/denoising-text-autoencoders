@@ -1,5 +1,4 @@
-# start in main directory
-cd ../
+cd ../      # start in main directory
 
 python test.py --reconstruct --data data/anki_parallel/eng_train.txt --output_dir experiments/eng_reconstruct --output train --checkpoint checkpoints --verbose
 mv experiments/eng_reconstruct/train.z.pt experiments/vectors/eng_train.z.pt
