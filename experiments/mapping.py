@@ -24,13 +24,15 @@ parser.add_argument('--epochs', type=int, default=10,
                     help='Number of epochs')
 parser.add_argument('--batch-size', type=int, default=10, 
                     help='Number of epochs')
+parser.add_argument('--data-fraction', type=float, default=1,
+                    help='Fraction of data to use')
 parser.add_argument('--loss-func', type=str, default='mse', choices=['mse', 'cosine'],
                     help='Type of loss function to use')
-parser.add_argument('--layers', type=int, default=2,
+parser.add_argument('--layers', type=int, default=3,
                     help='Number of layers of mapping model')
 parser.add_argument('--units', type=int, default=128,
                     help='Number of units in mapping model')
-parser.add_argument('--activation', type=str, default='relu', choices=['relu', 'sigmoid', 'tanh'],
+parser.add_argument('--activation', type=str, default='sigmoid', choices=['relu', 'sigmoid', 'tanh'],
                     help='Type of loss function to use')
 
 
@@ -87,17 +89,23 @@ def valid_loop(eng_dataloader, spa_dataloader, model, loss_fn, writerStep):
 
     return mean_loss
 
-def load_parallel_data(dir, type, device):
+def load_parallel_data(dir, type, device, frac):
     eng_path = os.path.join(dir, f"eng_{type}.z.pt")
     spa_path = os.path.join(dir, f"spa_{type}.z.pt")
 
     eng_vectors = torch.tensor(torch.load(eng_path), dtype=torch.float32).to(device)
     spa_vectors = torch.tensor(torch.load(spa_path), dtype=torch.float32).to(device)
 
+    size = len(eng_vectors)
+    keep = int(size * frac)
+    print(f"Loaded {size} {type} sentences; keeping {keep} {type} sentences")
+
+    eng_vectors, spa_vectors = eng_vectors[:keep], spa_vectors[:keep]
+
     eng_dataloader = DataLoader(eng_vectors, batch_size=BATCH_SIZE, shuffle=False)
     spa_dataloader = DataLoader(spa_vectors, batch_size=BATCH_SIZE, shuffle=False)
 
-    return eng_dataloader, spa_dataloader
+    return eng_dataloader, spa_dataloader, keep
 
 
 if __name__ == "__main__":
@@ -111,11 +119,15 @@ if __name__ == "__main__":
     UNITS = args.units
     ACTIVATION = args.activation
 
-    signature = f"n{NLAYERS}_l{LOSS_FUNC}_u{UNITS}_a{ACTIVATION}_e{EPOCHS}"
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-    eng_train_dataloader, spa_train_dataloader = load_parallel_data(args.vector_dir, "train", device)
-    eng_valid_dataloader, spa_valid_dataloader = load_parallel_data(args.vector_dir, "valid", device)
+    (eng_train_dataloader, 
+     spa_train_dataloader, 
+                    keep)   = load_parallel_data(args.vector_dir, "train", device, args.data_fraction)
+    (eng_valid_dataloader, 
+     spa_valid_dataloader)  = load_parallel_data(args.vector_dir, "valid", device, 1)
+    
+    signature = f"n{NLAYERS}_l{LOSS_FUNC}_u{UNITS}_a{ACTIVATION}_e{EPOCHS}_s{keep}"
 
     afunc = {"relu": nn.ReLU, "sigmoid": nn.Sigmoid, "tanh": nn.Tanh}[ACTIVATION]
     model = MappingModel(VECTOR_DIM, NLAYERS, activation=afunc).to(device)
