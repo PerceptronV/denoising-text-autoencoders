@@ -165,11 +165,17 @@ if __name__ == "__main__":
             eng_train_dataloader, spa_train_dataloader, model, loss_fn, optimizer, writerStep)
         valid_loss = valid_loop(
             eng_valid_dataloader, spa_valid_dataloader, model, loss_fn, writerStep)
-        valid_low = valid_loss if valid_loss < valid_low else valid_low
+
+        if valid_loss < valid_low:
+            valid_low = valid_loss
+            epoch_low = t
+
         if t > 0 and args.early_stopping is not None:
             if (valid_loss - valid_low) > args.early_stopping:
                 end_text = f"Early stopping triggered at epoch = {t+1}, loss = {valid_loss}. Increase of {valid_loss - valid_low} > {args.early_stopping}."
                 writer.add_text(signature, end_text, writerStep)
+                writer.add_text(
+                    signature, f"Epoch with lowest validation loss: {epoch_low+1}", writerStep)
                 print(end_text)
                 break
 
