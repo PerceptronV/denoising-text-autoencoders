@@ -215,9 +215,7 @@ if __name__ == "__main__":
     attn = Attention(ENC_HID_DIM, DEC_HID_DIM, ATTN_DIM)
     dec = Decoder(OUTPUT_DIM, DEC_EMB_DIM, ENC_HID_DIM, DEC_HID_DIM, DEC_DROPOUT, attn)
     model = Seq2Seq(enc, dec, device).to(device)
-
     model.apply(init_weights)
-    logging(f'The model has {count_parameters(model):,} trainable parameters')
 
     # Optim & Loss
     optimizer = optim.Adam(model.parameters(), args.lr)
@@ -243,6 +241,7 @@ if __name__ == "__main__":
     else:
         ep_range = range(N_EPOCHS)
         best_valid_loss = float('inf')
+        logging(f'The model has {count_parameters(model):,} trainable parameters')
 
 
     for epoch in ep_range:

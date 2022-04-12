@@ -16,7 +16,7 @@ class Logger(object):
             path = self.default_path
 
         print(f"{path}: {value}")
-
+        
         if type(value).__name__ in ("int", "float"):
             self.write_scalar(path, value, *args, **kwargs)
         elif type(value).__name__ == "str":
