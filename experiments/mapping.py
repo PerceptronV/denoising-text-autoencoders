@@ -162,10 +162,6 @@ if __name__ == "__main__":
     writerStep = 0
     valid_low = 1e+6
 
-    writer.add_text(
-        signature, f"{keep} sentences used for signature {signature}", writerStep
-    )
-
     for t in range(EPOCHS):
         print(f"\nEpoch {t+1}\n-------------------------------")
         _, writerStep = train_loop(
@@ -186,9 +182,11 @@ if __name__ == "__main__":
                 writer.add_text(signature, end_text, writerStep)
                 print(end_text)
                 break
-
+    
+    valid_text = f"Lowest validation loss is {valid_low:>7f} at epoch {epoch_low+1}."
+    num_text = f"{keep} sentences used for signature {signature}"
     writer.add_text(
-        signature, f"Lowest validation loss is {valid_low:>7f} at epoch {epoch_low+1}.", writerStep
+        signature, f"{valid_text}\n\n{num_text}", writerStep + 1
     )
 
     print("\nTraining complete")
