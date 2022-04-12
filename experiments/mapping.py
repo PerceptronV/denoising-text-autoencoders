@@ -143,10 +143,13 @@ if __name__ == "__main__":
      _) = load_parallel_data(args.vector_dir, "valid", device, 1)
 
     signature = f"n{NLAYERS}_l{LOSS_FUNC}_u{UNITS}_a{ACTIVATION}_e{EPOCHS}_b{BATCH_SIZE}_d{args.data_fraction}"
+    print(f"Training started for signature {signature}")
 
     afunc = {"relu": nn.ReLU, "sigmoid": nn.Sigmoid,
              "tanh": nn.Tanh}[ACTIVATION]
-    model = MappingModel(VECTOR_DIM, NLAYERS, activation=afunc).to(device)
+    model = MappingModel(
+        VECTOR_DIM, NLAYERS, units=UNITS, activation=afunc
+    ).to(device)
 
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
@@ -159,6 +162,10 @@ if __name__ == "__main__":
     writerStep = 0
     valid_low = 1e+6
 
+    writer.add_text(
+        signature, f"{keep} sentences used for signature {signature}", writerStep
+    )
+
     for t in range(EPOCHS):
         print(f"\nEpoch {t+1}\n-------------------------------")
         _, writerStep = train_loop(
@@ -169,6 +176,9 @@ if __name__ == "__main__":
         if valid_loss < valid_low:
             valid_low = valid_loss
             epoch_low = t
+            torch.save(model, os.path.join(args.output_dir, f"model_{signature}.pt"))
+            writer.add_text(signature, "Lowest valid loss. Model saved", writerStep)
+            print("Lowest valid loss. Model saved")
 
         if t > 0 and args.early_stopping is not None:
             if (valid_loss - valid_low) > args.early_stopping:
@@ -178,10 +188,9 @@ if __name__ == "__main__":
                 break
 
     writer.add_text(
-        signature, f"Lowest validation loss is {valid_low:>7f} at epoch {epoch_low+1}.", writerStep)
+        signature, f"Lowest validation loss is {valid_low:>7f} at epoch {epoch_low+1}.", writerStep
+    )
 
     print("\nTraining complete")
 
     writer.close()
-    torch.save(model, os.path.join(args.output_dir, f"model_{signature}.pt"))
-    print("Model saved")
