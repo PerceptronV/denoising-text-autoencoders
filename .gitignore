@@ -106,9 +106,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# training checkpoints
-checkpoints/
-
 # training data
 data/*
 tmp-spa-eng-data/
