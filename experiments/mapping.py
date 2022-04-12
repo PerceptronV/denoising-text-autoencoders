@@ -172,12 +172,13 @@ if __name__ == "__main__":
 
         if t > 0 and args.early_stopping is not None:
             if (valid_loss - valid_low) > args.early_stopping:
-                end_text = f"Early stopping triggered at epoch = {t+1}, loss = {valid_loss}. Increase of {valid_loss - valid_low} > {args.early_stopping}."
+                end_text = f"Early stopping triggered at epoch = {t+1}, loss = {valid_loss:>7f}. Increase of {valid_loss - valid_low:>7f} > {args.early_stopping}."
                 writer.add_text(signature, end_text, writerStep)
-                writer.add_text(
-                    signature, f"Epoch with lowest validation loss: {epoch_low+1}", writerStep)
                 print(end_text)
                 break
+
+    writer.add_text(
+        signature, f"Lowest validation loss is {valid_low:>7f} at epoch {epoch_low+1}.", writerStep)
 
     print("\nTraining complete")
 

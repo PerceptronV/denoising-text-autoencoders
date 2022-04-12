@@ -5,7 +5,7 @@ logdir = "runs/model_simplification"
 
 loss_func = 'mse'
 activation = 'relu'
-stopping = 0.01
+stopping = 0.0075
 
 batch_size = 64
 k = 15 * 1
