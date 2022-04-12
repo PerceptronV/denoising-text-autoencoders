@@ -52,7 +52,7 @@ class Logger(object):
                 self.bufferStep = step
             else:
                 if self.buffer != '':
-                    self.buffer = self.buffer + '\n' + value
+                    self.buffer = self.buffer + '\n\n' + value
                 else:
                     self.buffer = value            
     
