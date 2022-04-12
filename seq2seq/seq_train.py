@@ -230,13 +230,13 @@ if __name__ == "__main__":
 
     if args.load_existing and os.path.exists(states_ckpt_path) and os.path.exists(progress_ckpt_path):
         states = torch.load(states_ckpt_path)
+        best_valid_loss = states['best_valid']
         model.load_state_dict(states['model_state_dict'])
-        optimizer.load_state_dict(states['optimizer_state_dict'])
-
+        
         progress = torch.load(progress_ckpt_path)
         ep_range = range(progress['epoch'] + 1, N_EPOCHS)
-        best_valid_loss = progress['best_valid']
         logging.set_global_step(progress['global_step'])
+        optimizer.load_state_dict(progress['optimizer_state_dict'])
         
     else:
         ep_range = range(N_EPOCHS)
@@ -262,8 +262,8 @@ if __name__ == "__main__":
         if valid_loss < best_valid_loss:
             best_valid_loss = valid_loss
             torch.save({
+                'best_valid': best_valid_loss,
                 'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict()
             }, states_ckpt_path)
             logging('Best valid loss. Model saved.')
         
@@ -271,8 +271,8 @@ if __name__ == "__main__":
             'epoch': epoch,
             'train_loss': train_loss,
             'valid_loss': valid_loss,
-            'best_valid': best_valid_loss,
-            'global_step': logging.gstep
+            'global_step': logging.gstep,
+            'optimizer_state_dict': optimizer.state_dict()
         }, progress_ckpt_path)
     
     logging.flush()
