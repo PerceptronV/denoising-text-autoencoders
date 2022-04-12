@@ -1,4 +1,4 @@
-logdir="runs/big_idea_sh"
+logdir="runs/big_idea"
 
 epochs=15
 batch_size=64
