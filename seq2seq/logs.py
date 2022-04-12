@@ -7,6 +7,9 @@ class Logger(object):
         self.gstep = step
         self.default_path = default_path
         self.writer = SummaryWriter(dir)
+
+        self.buffer = ""
+        self.bufferStep = step
     
     def __call__(self, value, path=None, *args, **kwargs):
         if path is None:
@@ -37,7 +40,26 @@ class Logger(object):
     
     def write_text(self, path, value, step=None, increment=False):
         step = self.solve_step_inc(step, increment)
-        self.writer.add_text(path, value, step)
+
+        if path != self.default_path:
+            self.writer.add_text(path, value, step)
+        
+        else:
+            if step != self.bufferStep:
+                if self.buffer != '':
+                    self.writer.add_text(path, self.buffer, self.bufferStep)
+                self.buffer = value
+                self.bufferStep = step
+            else:
+                if self.buffer != '':
+                    self.buffer = self.buffer + '\n' + value
+                else:
+                    self.buffer = value            
+    
+    def flush(self, path=None):
+        if path is None:
+            path = self.default_path
+        self.writer.add_text(path, self.buffer, self.gstep)
 
     def write_scalar(self, path, value, step=None, increment=True):
         step = self.solve_step_inc(step, increment)

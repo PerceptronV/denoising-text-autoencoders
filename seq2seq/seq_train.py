@@ -37,7 +37,7 @@ parser.add_argument('--ckpt-dir', type=str, default="./ckpts",
 parser.add_argument('--vocab-file', type=str,
                     help='Filepath to vocab file')
 parser.add_argument('--load-existing', action="store_true",
-                    help='Whether or not to load existing checkpoint')
+                    help='Whether or not to load any existing checkpoint')
 
 # Architecture arguments
 parser.add_argument('--enc-emb-dim', type=int, default=128,
@@ -275,3 +275,5 @@ if __name__ == "__main__":
             'best_valid': best_valid_loss,
             'global_step': logging.gstep
         }, progress_ckpt_path)
+    
+    logging.flush()
