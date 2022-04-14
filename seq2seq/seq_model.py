@@ -1,4 +1,4 @@
-# Following code from https://pytorch.org/tutorials/beginner/torchtext_translation_tutorial.html
+# Following code modified from https://pytorch.org/tutorials/beginner/torchtext_translation_tutorial.html
 # © Copyright 2017, PyTorch.
 
 import random
@@ -185,6 +185,34 @@ class Seq2Seq(nn.Module):
             output = (trg[t] if teacher_force else top1)
 
         return outputs
+    
+    def find_indices(self, T: Tensor, val: int) -> Tensor:
+        return (T==val).nonzero(as_tuple=True)[0]
+
+    def translate(self,
+                  src: Tensor,
+                  go_tok: int,
+                  pad_tok: int,
+                  max_len: int) -> Tensor:
+
+        batch_size = src.shape[1]
+
+        outputs = torch.full(
+            (max_len, batch_size), pad_tok, dtype=torch.long
+        ).to(self.device)
+
+        encoder_outputs, hidden = self.encoder(src)
+
+        # first input to the decoder is the <go> token
+        output = torch.tensor([go_tok for _ in range(batch_size)], dtype=torch.long).to(self.device)
+
+        for t in range(1, max_len):
+            output, hidden = self.decoder(output, hidden, encoder_outputs)
+            top1 = output.max(1)[1]
+            outputs[t] = top1
+            output = top1
+
+        return outputs.transpose(0, 1).to(self.device)
 
 
 def init_weights(m: nn.Module):

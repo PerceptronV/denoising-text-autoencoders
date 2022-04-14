@@ -10,6 +10,7 @@ from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
 
 from seq_model import *
+from seq_utils import *
 from logs import Logger
 
 import sys
@@ -75,14 +76,6 @@ parser.add_argument('--no-cuda', action="store_true",
 # :-------------------------------------------------------------------------------------: #
 # :-------------------------------------------------------------------------------------: #
 # :-------------------------------------------------------------------------------------: #
-
-def tokenise(x, vocab):
-    batch = []
-    for s in x:
-        tokens = [vocab.go] + [vocab.word2idx[w] if w in vocab.word2idx else vocab.unk for w in s] + [vocab.eos]
-        t = torch.tensor(tokens, dtype=torch.long)
-        batch.append(t)
-    return batch
 
 
 def generate_batch(data_batch):
