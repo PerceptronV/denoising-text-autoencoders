@@ -3,7 +3,6 @@ logdir="runs/model_simplification"
 loss_func='mse'
 activation='relu'
 stopping=0.0075
-
 batch_size=64
 k=$((15 * 1))
 
@@ -22,7 +21,8 @@ do
                 --activation $activation \
                 --epochs $epochs \
                 --batch-size $batch_size \
-                --log-dir $logdir
+                --log-dir $logdir \
+                --early-stopping $stopping
         done
     done
 done
