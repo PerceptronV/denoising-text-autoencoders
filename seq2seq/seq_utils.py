@@ -9,5 +9,16 @@ def tokenise(x, vocab):
     return batch
 
 def de_tokenise(y, vocab):
-    omit_tokens = (vocab.go, vocab.eos, vocab.pad)
-    return [[vocab.idx2word[i] for i in s if i not in omit_tokens] for s in y]
+    omit_tokens = (vocab.go, vocab.pad)
+    word_sents = []
+
+    for s in y:
+        word_s = []
+        for i in s:
+            if i == vocab.eos:
+                break
+            elif i not in omit_tokens:
+                word_s.append(vocab.idx2word[i])
+        word_sents.append(word_s)
+    
+    return word_sents
