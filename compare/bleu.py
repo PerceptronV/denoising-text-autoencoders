@@ -1,4 +1,7 @@
-from nltk.translate.bleu_score import corpus_bleu
+from nltk.translate.bleu_score import sentence_bleu, corpus_bleu
+from tqdm import tqdm
+from statistics import stdev, mean
+
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -25,6 +28,18 @@ def load_wordlists(fp, is_ref=False):
     chunk = f.read()
   return sents2wordlists(chunk2sents(chunk), is_ref)
 
+def multi_sentence_bleu(refs, hyps):
+  ret = []
+  for (r, h) in tqdm(zip(refs, hyps)):
+    ret.append(sentence_bleu(r, h))
+  return ret
+
+def stats(m_bleus, c_val):
+  ret  = f"mico-average mean  {c_val}\n"
+  ret += f"macro-average mean {mean(m_bleus)}\n"
+  ret += f"standard deviation {stdev(m_bleus)}\n"
+  return ret
+
 if __name__ == "__main__":
 
   args = parser.parse_args()
@@ -36,12 +51,15 @@ if __name__ == "__main__":
   print(len(ref), len(hypA), len(hypB))
 
   print("Computing BLEU scores for hypothesis A...")
-  hypA_bleu = corpus_bleu(ref, hypA)
+  hypA_multi_bleus = multi_sentence_bleu(ref, hypA)
+  hypA_corpus_bleu_val = corpus_bleu(ref, hypA)
   print("Computing BLEU scores for hypothesis B...")
-  hypB_bleu = corpus_bleu(ref, hypB)
+  hypB_multi_bleus = multi_sentence_bleu(ref, hypB)
+  hypB_corpus_bleu_val = corpus_bleu(ref, hypB)
   
   print("\n")
 
-  print(f"Hypothesis A score: {hypA_bleu} (from file at {args.hypA})")
-  print(f"Hypothesis B score: {hypB_bleu} (from file at {args.hypB})")
-
+  print(f"Hypothesis A BLEU score (from file at {args.hypA}):")
+  print(stats(hypA_multi_bleus, hypA_corpus_bleu_val))
+  print(f"Hypothesis B BLEU score: (from file at {args.hypB}):")
+  print(stats(hypB_multi_bleus, hypB_corpus_bleu_val))
