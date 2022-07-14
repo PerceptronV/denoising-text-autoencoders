@@ -74,20 +74,15 @@ def train_loop(eng_dataloader, spa_dataloader, model, loss_fn, optimizer, writer
     return mean_loss, writerStep
 
 
-def valid_loop(eng_dataloader, spa_dataloader, model, loss_fn, writerStep):
+def valid_loop(eng_dataloader, spa_dataloader, model, writerStep):
+    loss_fn = nn.MSELoss()
     losses = []
 
     with torch.no_grad():
         for eng_vec, spa_vec in zip(eng_dataloader, spa_dataloader):
             pred = model(eng_vec)
 
-            if LOSS_FUNC == "mse":
-                loss = loss_fn(pred, spa_vec)
-            elif LOSS_FUNC == "cosine":
-                # use this for cosine loss
-                loss = -loss_fn(pred, spa_vec).abs().mean()
-
-            loss = loss.item()
+            loss = loss_fn(pred, spa_vec).item()
             losses.append(loss)
 
     mean_loss = np.mean(losses)
@@ -167,7 +162,7 @@ if __name__ == "__main__":
         _, writerStep = train_loop(
             eng_train_dataloader, spa_train_dataloader, model, loss_fn, optimizer, writerStep)
         valid_loss = valid_loop(
-            eng_valid_dataloader, spa_valid_dataloader, model, loss_fn, writerStep)
+            eng_valid_dataloader, spa_valid_dataloader, model, writerStep)
 
         if valid_loss < valid_low:
             valid_low = valid_loss

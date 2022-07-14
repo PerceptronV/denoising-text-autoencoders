@@ -1,7 +1,7 @@
-logdir="./runs/shrinking_dry_run"
+logdir="runs/shrinking_dry_run"
 
 loss_func='mse'
-activation='sigmoid'
+activation='relu'
 units=128
 layers=3
 

@@ -4,11 +4,22 @@ loss_func='mse'
 activation='relu'
 stopping=0.0075
 batch_size=64
-k=$((15 * 1))
+k=$((20 * 1))
 
-for data_fraction in 0.1 0.05 0.025 0.01
+python mapping.py \
+    --data-fraction 1 \
+    --units 256 \
+    --layers 3 \
+    --loss-func mse \
+    --activation relu \
+    --epochs 20 \
+    --batch-size 64 \
+    --log-dir $logdir \
+    --early-stopping $stopping
+
+for data_fraction in 0.25 0.1 0.05
 do
-    for units in 128 64 32
+    for units in 256 128 64 32
     do
         for layers in 3 2 1
         do

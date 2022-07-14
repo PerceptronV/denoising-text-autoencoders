@@ -1,9 +1,9 @@
 logdir="runs/hypers"
 
 loss_func='mse'
-activation='sigmoid'
+activation='relu'
 units=128
-layers=3
+layers=2
 data_fraction=1
 
 for epochs in 10 20 30
