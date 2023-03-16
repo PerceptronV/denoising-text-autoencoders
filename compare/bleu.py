@@ -2,6 +2,7 @@ from nltk.translate.bleu_score import sentence_bleu, corpus_bleu
 from matplotlib import pyplot as plt
 from statistics import stdev, mean, median, mode
 from tqdm import tqdm
+import numpy as np
 import os
 
 import argparse
@@ -46,7 +47,7 @@ def count(l, func):
   return ret
 
 def stats(m_bleus, c_val):
-  ret  = f" mico-average mean | {c_val}\n"
+  ret  = f"micro-average mean | {c_val}\n"
   ret += f"macro-average mean | {mean(m_bleus)}\n"
   ret += f"            median | {median(m_bleus)}\n"
   ret += f"              mode | {mode(m_bleus)}\n"
@@ -55,15 +56,26 @@ def stats(m_bleus, c_val):
   ret += f"         # <= 0.1s | {count(m_bleus, lambda x : x < 0.1)}\n"
   ret += f"         # <= 0.4s | {count(m_bleus, lambda x : x <= 0.4)}\n"
   ret += f"          # > 0.4s | {count(m_bleus, lambda x : x > 0.4)}\n"
+  ret += f"           # == 1s | {count(m_bleus, lambda x : x == 1)}\n"
   return ret
 
 def histogram(vals, title, fname, bins=150):
-  plt.hist(vals, bins=bins)
+  n, bin_edges, _ = plt.hist(vals, bins=bins)
   plt.title(title)
   plt.xlim([0, 1])
   plt.ylim([0, 200])
+  plt.ylabel('Frequency')
+  plt.xlabel('BLEU score')
   plt.show()
   plt.savefig(os.path.join(args.histdir, fname+'.png'))
+  
+  n_sort = n.copy()
+  n_sort.sort()
+  mode = n_sort[-3]
+  mode_idx = np.where(n == mode)[-1]
+  edge = bin_edges[mode_idx]
+
+  print(mode, edge, bin_edges)
 
 if __name__ == "__main__":
 

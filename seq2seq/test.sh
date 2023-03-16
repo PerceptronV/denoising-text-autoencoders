@@ -12,3 +12,13 @@ python seq_test.py --input-file ../data/anki_parallel/eng_test.txt \
                    --output-file ./seq_outs/1.0/eng2spa_test_full.txt \
                    --states-file ./ckpts/1.0/states.pt \
                    --vocab-file ../checkpoints/vocab.txt
+
+python seq_test.py --input-file ../data/anki_parallel/eng_valid_sel2.txt \
+                   --output-file ./seq_outs/0.1/eng2spa_valid_sel2.txt \
+                   --states-file ./ckpts/0.1/states.pt \
+                   --vocab-file ../checkpoints/vocab.txt
+
+python seq_test.py --input-file ../data/anki_parallel/eng_new_sel.txt \
+                   --output-file ./seq_outs/0.1/eng2spa_new_sel.txt \
+                   --states-file ./ckpts/0.1/states.pt \
+                   --vocab-file ../checkpoints/vocab.txt

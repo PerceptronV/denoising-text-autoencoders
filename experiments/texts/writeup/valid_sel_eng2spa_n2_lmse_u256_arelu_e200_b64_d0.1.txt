@@ -1,0 +1,500 @@
+toma lo que .
+¿ que lo viste ?
+necesito un gran supermercado .
+no deberias haberlo hecho .
+¿ hay algo mas de la escuela ?
+el se arrodillo a la izquierda y <unk> la campana .
+el es <unk> de que su padre tiene la <unk> .
+el gobierno posee un tipo de idiotas .
+volvere a paris en $ _num_ minutos .
+no son capaces de recordar eso .
+el le dio su asiento a la .
+estoy acostumbrada a este clima .
+no puede hacerlo .
+no le gusta ser realidad .
+no me pedi tom .
+tom no sabe comer .
+ella levanto su cara .
+muchos turistas visitan en la ciudad asia .
+tom le conto a mary la verdad .
+es mejor que vayas en tu pais .
+¿ quieres las conteste ?
+los arboles estan en las arboles .
+debemos vosotros dos lenguas .
+mi hijo se va a casar en octubre .
+no soy un crio .
+no se que decir .
+tom me dijo .
+el viaje hace cinco dias .
+su muerte tuvo una <unk> en la villa .
+estas buscando un problema .
+es mi .
+dime que el viene a tom y a una hora de .
+no habia pasado manana en la manana .
+no vuelvas a tu perro , lo que <unk> .
+el volvera a visitar paris .
+nadie quiere hacerlo .
+¿ que te <unk> de ropa ?
+ven a tom .
+el esta en su casa .
+no estoy en el mismo tipo de eso .
+el avion llego a la estacion de <unk> .
+ella intento escapar .
+¿ por que no usas tus lentes ?
+te llamara cuando llegue a casa .
+el es un vecindario violento .
+tom dice que no habia visto a sus amigos como hubiera pasado .
+no quiero cometer el mismo error que la situacion .
+me acuerdo a ella .
+no olvides tomar un paraguas .
+venga aqui , tom .
+es un dia <unk> de ellos .
+te vere en casa .
+<unk> el .
+estoy deseando verte de frances .
+me ire a verte manana .
+¿ podrias conocer a tom en su cumpleanos ?
+no tengo que ser de que no estas buscando .
+quiero que me lleven .
+no me siento tan nunca como .
+el es diferente .
+tom fue su primera persona para ayudar a los ojos .
+estoy acostumbrado a comer .
+nosotros iremos a la piscina .
+esta es un poco de eso .
+creo que tenemos un dia muy <unk> .
+¿ crees que tom tiene con mary en boston ?
+tom no le daria ni una mary .
+yo camine a la lluvia .
+tom no podia tener ningun dinero para mary .
+¿ acaso estaba de esto ?
+no se si no sabes si no le gusta .
+el no puede ir .
+el es de peligro de lo que es la decision .
+lo que estas hecho , a tom .
+¿ que tan grande ? no tengo menos que tu .
+de verdad no es lo que .
+tom tiene un <unk> .
+mira a la derecha .
+cuando llegue a casa , te echo de mi .
+es demasiado dificil , pero no puedo .
+no creo que mas pueda ser mas .
+el se puso en el .
+ahora conduzco muy bien .
+el cuchillo se detuvo .
+tom no tenia nada que que viniera .
+tom es el que lo quiere hacer ahora .
+quisiera terminar un pedazo de correo electronico en ingles .
+el llevaba gafas .
+tom no sabe nada acerca de la gente .
+me gustaria ir a visitarte .
+¿ crees que tom tiene dolor de cabeza ?
+no necesitas venir aqui ,
+¿ cuando hiciste eso tom ?
+el viento <unk> .
+me gusta mi auto y pueda comer carne .
+¿ te importaria si abro esta ventana ?
+hoy queda mucho tiempo en $ _num_ .
+mi madre ha dejado una tarta de cafe .
+los soldados se <unk> en la playa .
+no quiero verte .
+no puedes venir , pero a tom .
+tom ha estado trabajando desde tres meses .
+compre un metro de grande en el .
+¿ por que estas atrasado ?
+¿ no te gusta ninguno de los ?
+el chico entro en la cama .
+lo siento , tom .
+tom es el hijo de la familia .
+¿ puedo hacer algo de palabra ?
+yo he estado leyendo este libro .
+tom aseguraba que no conocia a mary por venir .
+los estudiantes estan en contra de la ciudad .
+te dire que lo hiciera tu .
+ella se levanto a su .
+el final se quemo de vista .
+¿ es usted mas de $ _num_ ?
+¿ donde estoy ?
+no encuentro ninguna .
+no me gusta esto .
+era evidente que un hombre era rico en un famoso .
+le di a tom que un modo de hacer como una vez .
+este remedio tiene un millon de dolares .
+tenemos tiempo para empezar .
+no puedo recordar el es la mujer .
+no me esperaba hacerle que tom saliera .
+no me invitaste .
+¿ quien te dijo mi nombre ?
+no tengo nada que darte .
+las personas <unk> de nuestro pais y nos fuimos mas de ellos .
+si , te , lo sera haciendo .
+en los <unk> de la tormenta se <unk> en el .
+nos <unk> en tu velocidad .
+por favor .
+tom normalmente llega tarde a la diez anos .
+tom no parece que estar muy cansado de .
+tom es cierto , ¿ no es ?
+no es tan inteligente como como sientes .
+todos lo acuerdo de ti es cierto .
+este es mi gato .
+el corrio .
+tenemos que tomar una vuelta al hotel .
+creo que estas perdonado .
+¿ que hay dos y cincuenta ?
+no creo que tom pudiera hacer lo que maria nos dijo que no .
+necesitas empezar .
+no consigo cuanto pueda parar a ella .
+mi portatil no esta siempre de cerdo .
+tom esta en la cantina .
+no queria mas tiempo que <unk> .
+tom no entendio nada importante .
+tom se sento y solo en un minuto .
+tom es muy orgulloso .
+esto es muy gracioso .
+lo que haces es .
+el termino la escuela .
+tom volvio a dormir .
+no te metas muy al tenis de donde eres .
+el pobre fue tan fuerte como de ellos .
+ellos estan enfrentando de jovenes .
+tengo algo mas que hacer que te quedes .
+ella le pidio a la escuela .
+tom ha tomado un arma de mary .
+tom me escuchara .
+¿ que le paso ?
+cuando llegue a casa , se vuelve .
+ella esta en su sofa .
+me agarre una resfriado .
+tom no tiene un dia que quiere menos a mary .
+¿ por que tom trabaja en boston ?
+se dice que es mas rico que <unk> .
+tom se enseno a mary con la tarde y .
+no hay nada mas palabras .
+no me que tom no sera mi padre .
+mi hermano es tan alto que no puedo .
+es un poco mas de que yo puedes hablar .
+¿ cuando estaras en la oficina de aqui ?
+el es un heroe sin amor .
+estoy muy emocionada .
+pense que tom te estaba esto .
+no quiero que esto sin leer .
+tom habla con mary en dias .
+¿ que eso es esta ?
+muchos empleados son <unk> .
+es tu tiempo para ayudar a nuestro equipo .
+estamos bastante .
+tom no es tonto .
+su discurso quedo en la zona .
+tom esta en la playa .
+se que era bastante .
+es este libro de casa en bicicleta .
+la noticia se le ocurrio inesperadamente a su gran hijo .
+los bebes se sienten adentro por favor .
+¿ crees que tom podra ser la mujer de mary que no le <unk> ?
+ellos van a estar en casa hasta el colegio .
+para la salud , el equipo de los incendios es mejor que los <unk> .
+me encargare de que tom esta boston .
+el tren llegara manana .
+no me acuerdo de .
+el reloj tiene nada de la nieve .
+compre un hibrido .
+quiero hablar chino de frances .
+lo levanto .
+¿ por que te gusto ?
+¿ por que quieres ser un novio ?
+no quiero ir alli .
+necesito una copia de este .
+el precio de sus bolsillos esta <unk> .
+se te olvido de la puerta .
+la habitacion estaba <unk> de madera .
+me lei algo de comer .
+el precio de los huevos esta demasiado <unk> .
+el vio en la muerte .
+me apesta la tarde .
+de nuevo , tom esta en .
+tom no tiene que hablar con los ninos .
+¿ sabes que es tom ?
+no puedo hacer el tiempo que podria comer en la noche .
+¿ has estado alguna vez en un computador ?
+tom es el esposo de mary .
+¿ vas a verte ?
+no se lo que es decir que el amor .
+lo hare , .
+¿ es una fiesta mas ?
+es lo que haces .
+si tuvieramos que <unk> , te encantaba flores .
+no podria estar .
+tom sabia que mary era la mujer .
+no podria parar , a la policia , por favor .
+no puedo contar la ciudad sin un ano proximo .
+le di .
+tom esta mi novia en la pared .
+soy bastante , .
+tom se miro un tiro de mary .
+no sabemos por que tom hizo eso .
+no queria hacer nada que no lo hiciera .
+no estes en ningun club , pero tuvimos mucha violencia .
+no me dije que no venga .
+por favor , <unk> las escaleras de aqui .
+nadie me haria .
+es dificil dominar un idioma extranjera .
+es muy serio .
+el un terremoto <unk> .
+no hay que tomar .
+me siento como incomodo .
+¿ quieres algo de tom , tom ?
+te gusta a tom .
+no es probable que en un pais tan .
+que el venga , la gente se .
+no creo que me da miedo .
+¿ que te dio tom , pero no de quien ?
+de cierto , ella ya no es muy joven .
+sal y dos dias y la manana .
+¿ quien te pago ?
+¿ sabes cual era suficiente o no ?
+ella entro en la habitacion de tom .
+necesito algo asi .
+no eres el tom .
+tom apago la luz .
+por favor , <unk> donde los mi gato .
+mi jardin es una de diez .
+yo siento que estaba haciendo esto .
+pense que me podria venir con ella .
+tom termino de trabajo la vida pasada .
+el esta jugando de tenis .
+el <unk> de la conciencia y fue profesor .
+yo lo dije que tom estaba enferma .
+no queremos <unk> a los .
+haz algo .
+tenemos que perder el .
+venga cuando y antes de tus amigos .
+estamos <unk> .
+es ese , ¿ no es asi ?
+no habia duda la causa de el .
+me gusta estudiar frances .
+lo lamentaras mas tarde .
+el es un <unk> de magia .
+no debes ser ella .
+tom no sabia que mary habia de john .
+nunca te habria hecho por lo mismo .
+no ha venido mi contrasena que .
+es un gran problema .
+no me dijiste que estabas en casa .
+el siempre lleva los papeles .
+si sabes que estas aqui , deberias escuchar .
+me acuerdo con tom a mary .
+si quieres , no te hagas mi opinion .
+en caso de un error lo que esta buscando el .
+no debemos ser rica .
+no creo que tom tenga tanta verdad .
+te ves .
+no estas cansado , asi . puedo llegar un poco .
+¡ que lo sabes , ¿ !
+esta es un hotel .
+no te digas mi .
+tom compro su libro en voz .
+el presidente a la universidad el ano .
+¿ cuando conociste tom ?
+no te pases de mi nombre .
+te ves .
+tenemos una gran cantidad de cafe .
+los caballos son grandes .
+esta computadora es el en australia .
+eres libre y irse .
+eres la unica persona que tom y yo haya visto .
+eso no es lo que dijiste .
+no me gustan los bares . son demasiado en el .
+el cafe es mas grande .
+el es ciudadano que la gente tiene un <unk> de su propio pais .
+yo lo perdi .
+me llamara , pero .
+el tiene una gran familia .
+cuando nos fuimos a casa , los dos dias .
+el tiene un viaje en la universidad .
+el remedio tiene mucha lluvia .
+el es mi tio .
+cuando llovio , nada .
+no tengo tiempo que tomar .
+¿ que es eso ?
+tom no puede quedarse .
+estoy escribiendo de frances .
+los soldados <unk> .
+espero que <unk> todo lo que voy a arrepentirte .
+¿ por que tom te <unk> ?
+tom dejo un mensaje de lo que habia pasado .
+el agua del techo de la puerta <unk> .
+no quiero otra donacion .
+cuando llegue a casa , los dos <unk> se dieron cuenta de que sus <unk> .
+pense que el era tu amigo .
+no puedo creer que es bastante eficaz .
+tom tiene un buen grupo .
+no creo que tom te habria hecho de solo .
+la leche esta roto .
+el me traiciono .
+ella llego al colegio .
+mira tu gorra .
+el tiene un caracter atractivo .
+no entiendo a que quieres tom .
+ella le adora .
+tome un taxi .
+ella murio en una guerra de hotel .
+no olvidemos nada de que se llegue a boston .
+si quieres ir a casa , ¿ .
+me gustaria un hotel a la club .
+no seas mas de lo que dije .
+es tu opinion .
+eres un poco mas .
+en mi deseo , no era ningun .
+el primero que va pronto .
+no creo que lo que podria haber hecho .
+¿ que te pareceria la mayoria de los estudiantes que el ha pasado despues de la vida ?
+tom y mary son hermanos .
+el esta en la habitacion .
+un hombre de menudo me <unk> un chaparron de los en anos .
+no estoy segura de querer hacer eso .
+¡ estas intentando decir !
+tom se preguntaba que el era la atencion de su salud que el habia pasado .
+no te levantes .
+debes aprender a ti por tu consejo .
+no me puedo creer .
+se que no lo llegaras a ser .
+¿ que ha dicho que tom estaba aqui aqui ?
+ella no volvio nunca .
+mi garganta esta seca .
+tom es un mentiroso .
+¿ le estas escondiendo en tom ?
+¿ crees que es mas importante ?
+ella dijo que el era de john .
+era un gran amor .
+el se cambio de cultura .
+haz tu amor a la misma calidad .
+ella le recordo que su madre .
+estoy libre de tu viaje .
+no tenia que pasar si <unk> a la fiesta .
+ella tiene un grave .
+creo que eso es .
+no hay cafe con mi , tom .
+el se puso muy culpable .
+pense que no habria estado en boston .
+estan felices para entrar .
+me gusta la temperatura .
+no me puedo dejar de comer nunca .
+te gusta tu .
+recibi su opinion de un pais en la universidad .
+tom no pudo conseguir .
+el trabajo podria hacerlo .
+no quiero ser ayuda .
+necesitamos mas dinero .
+no me sorprende que nunca .
+tom termino el piano .
+tom va a cumplir a las personas a la que se que a mary .
+el me esta pidiendo que vuelva a mi .
+estas buscando algo asi .
+¿ tienes un vuelo de francia ?
+no me molesta nadar en aqui .
+¿ donde esta tu hijo ?
+no hay mucha luz .
+¿ que os podria hacer a ti que no lo habria contado ?
+¿ cuanto costaron los vasos ?
+puedes un poco , ¿ verdad ?
+no me siento complicado .
+el arrojo una lampara de la .
+es muy emocionante .
+lo <unk> todas las posibilidades .
+tu pelo son caliente .
+tom le pregunto a mary que su nombre .
+¿ quien te va a pedir ayuda ?
+nunca supe que habia estado en casa .
+tom camino a su casa y .
+tom tendra un viaje a japon .
+¿ hay el agua del pie de tom ?
+el esta siempre de problemas .
+yo no pense que aun estaba <unk> .
+me dije que hiciera .
+le <unk> tom .
+no te gusta aqui .
+el tren llegara a casa .
+tom juega al tenis .
+si te vas , vete y la vez .
+te echamos de menos y la guerra .
+el unico que tiene un problema de <unk> que se merece un paquete de su vida .
+pense que seria demasiado tiempo , pero no pude encontrar nada .
+¿ cuando vas a tener mas de tu tia ?
+tengo que hacer algo en el asunto .
+¿ tom es rico ?
+no te preocupes , si no estas bien .
+es lunes de hoy .
+tom queria ser artista .
+estamos contentos .
+me di la paciencia .
+tom no sabe que mary la verdad .
+me gustaria tener que escuchar .
+tom esta borracho .
+ella me compro la cocina .
+¿ esta es tu en tokio ?
+¿ has estado alguna vez en el ?
+estamos casi listos .
+ellos estan locos .
+tengo un pelo negro .
+no me gusta escribir ni la maquina de mi .
+¿ quien habla algo de verdad ?
+no puedes entender lo que dice tom .
+el es un mesero y <unk> .
+el hombre tiene una muneca de .
+esta raqueta el <unk> .
+ella murio cuando habia sido un nino .
+¿ es algo mas que tu metodo ?
+ellos son amigos .
+¿ donde vives tom a vivir aqui ?
+no me hagas enojar .
+¿ has estado ya en esta noche ?
+creo que ya se llegara tarde .
+un numero de gente esta la primavera .
+¿ que estabas haciendo en el colegio ?
+no te olvides que no puede lamentar .
+no me dijiste que lo habia dicho .
+<unk> , la suya .
+por favor , muestreme la camara .
+venga en casa .
+no soy un muy extrano .
+no hay nada que ver por esta .
+tom me pidio consejo .
+le di un chasco a la cuerda .
+ella le rogo a ella de tarde .
+me perdi la gripe durante dos dias .
+me doy cuenta si nos lo estes .
+tom dice que mary va a la escuela a trabajar el lunes .
+tome tu libro ayer .
+me tome mi paraguas en la estacion .
+le compre dos libros para los viejos .
+el asunto es .
+el puso su cuarto en la caja del auto .
+no es nada que pueda hacer eso .
+el baile de tom <unk> en la habitacion .
+me estaba moviendo .
+¿ donde esta el perro ?
+¿ cuanto te debitaron a tu profesor ?
+estoy pensando , que me diras la tarea .
+no podrias haberlo llamado .
+¿ me podrias mostrar tu sobre mi ?
+¿ estas tomando vitaminas ?
+el rio fue cancelado .
+¿ no tienes nada que hacer ahora ?
+¿ que comio el pan ?
+ojala que podia nadar .
+¿ cual es tu <unk> de rock ?
+te hare que estes atento .
+el es de paciencia .
+no te dejare que <unk> .
+¿ donde esta tom su de mary ?
+tom nunca era torturado .
+eres un tu amigo , ¿ no ?
+no deberias fumar ahora .
+¿ por que tom cambio su trabajo ?
+tom saco un poco de ritmo de la camisa y su <unk> .
+ella esta enfadado con el .
+eres un <unk> .
+soy un camarero .
+el necesita un poco de fruta .
+haz tu parte de .
+para ser el es importante .
